@@ -1,26 +1,71 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <NavBar />
+  <PostData @data-added="refreshData"/>
+  <GetData ref="getDataComp"/>
+  <UpdateData @data-added="refreshData" ref="updateDataComp"/>
+  <DeleteData @data-added="refreshData" ref="deleteDataComp" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import NavBar from './components/NavBar.vue';
+import PostData from './components/PostData.vue';
+import GetData from './components/GetData.vue';
+import UpdateData from './components/UpdateData.vue';
+import DeleteData from './components/DeleteData.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    NavBar,
+    PostData,
+    GetData,
+    UpdateData,
+    DeleteData
+  },
+    methods: {
+    refreshData() {
+      this.$refs.getDataComp.fetchData();
+      this.$refs.updateDataComp.fetchData();
+      this.$refs.deleteDataComp.fetchData();
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+    background-color: #f5f7fa;
+}
+
+.card {
+    border-radius: 12px;
+    border: none;
+}
+
+.card-header h5 {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.table td, .table th {
+    vertical-align: middle;
+}
+
+.btn {
+    border-radius: 6px;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    transition: 0.2s;
+}
+html{
+    scroll-behavior: smooth;
+}
+#post, #get, #update, #delete {
+    scroll-margin-top: 80px;
+}
+i.bi {
+    vertical-align: middle;
 }
 </style>
